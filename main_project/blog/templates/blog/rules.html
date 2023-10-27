@@ -1,0 +1,40 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+<br>
+    <h2>Zasady przyjęcia:</h2>
+    <div class="accordion" id="accordionPanelsStayOpenExample">
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne" data-bs-parent="#accordionPanelsStayOpenExample">
+        <strong>#1</strong>
+      </button>
+    </h2>
+    <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
+      <div class="accordion-body">
+        Najłatwiejszym sposobem ubiegania się o miejsce jest bezpośredni kontakt osób zainteresowanych i ich rodzin z naszym Środowiskowym Domem Samopomocy w Łęczycy przy ul. Juliusza Słowackiego 25.
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="true" aria-controls="panelsStayOpen-collapseTwo" data-bs-parent="#accordionPanelsStayOpenExample">
+          <strong>Dokumenty niezbędne do przyjęcia:</strong>
+      </button>
+    </h2>
+    <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show">
+      <div class="accordion-body">
+        <ul class="list-group">
+          <li class="list-group-item">1. Podanie do właściwego Ośrodka Pomocy Społecznej</li>
+          <li class="list-group-item">2. Zaświadczenie lekarskie od psychiatry lub neurologa oraz zaświadczenie od lekarza rodzinnego (druki do pobrania w ŚDS i zakładce "Dokumenty do pobrania") </li>
+
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="alert alert-danger" role="alert">
+    <strong>POBYT W NASZYM DOMU JEST NIEODPŁATNY</strong>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+<h2>Wyniki wyszukiwania:</h2>
+<ul>
+    {% for result in results %}
+        <li>{{ result.file_name }}</li>
+    {% empty %}
+        <li>Brak wyników.</li>
+    {% endfor %}
+</ul>
+{% endblock %}
