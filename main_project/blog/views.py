@@ -5,8 +5,8 @@ from django.contrib.staticfiles import finders
 from django.http import FileResponse
 from django.shortcuts import get_object_or_404
 from django.views import View
-from django.conf import settings
 import os
+from django.conf import settings
 from django.templatetags.static import static
 from .models import Photo
 
@@ -114,10 +114,21 @@ class PhotosTemplateView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        photos = Photo.objects.all()
-        context['photos'] = photos
+        photos_directory = settings.MEDIA_ROOT
+        photos = os.listdir(photos_directory)
+
+        photos_list = []
+        for photo in photos:
+            if photo.endswith(('.jpg', '.png', '.jpeg', '.gif')):
+                photos_list.append({
+                    'name': photo,
+                    'url': os.path.join(settings.MEDIA_URL, photo),
+                })
+
+        context['photos'] = photos_list
         return context
 
+        # zrobic obj za kazde zdjecie i tutaj sie odwolac; wiele zdjec w jednym modelu
 # class SearchPageTemplateView(ListView):
 #     template_name = 'blog/search.html'
 #     context_object_name = 'results'

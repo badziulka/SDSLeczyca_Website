@@ -1,13 +1,13 @@
 {% extends 'blog/base.html' %}
 {% load static %}
 {% block content %}
-    <h1>Photos</h1>
-    <div class="photo-gallery">
+    <h1>Zdjęcia Naszego Ośrodka</h1>
+    <ul>
         {% for photo in photos %}
-            <div class="photo">
-                <img src="{{ photo.image.url }}" alt="{{ photo.title }}">
-                <p>{{ photo.title }}</p>
-            </div>
+            <li>
+                <img src="{{ photo.url }}" alt="{{ photo.name }}" width="600" height="400">
+            </li>
+            <br>
         {% endfor %}
-    </div>
+    </ul>
 {% endblock %}

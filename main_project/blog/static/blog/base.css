@@ -95,12 +95,13 @@ a.article-title:hover {
     color: #cbd5db;
 }
 
-/* Kolor tła dla dropdown po najechaniu myszką */
+
 .dropdown:hover .btn-secondary {
     background-color: #229EDE;
 }
 
-/* Kolor tekstu dla dropdown po najechaniu myszką */
+
 .dropdown:hover .btn-secondary {
-    color: #fff; /* Jeśli chcesz zmienić kolor tekstu na biały po najechaniu */
+    color: #fff;
 }
+
