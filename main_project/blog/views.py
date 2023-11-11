@@ -118,6 +118,12 @@ class PhotosTemplateView(TemplateView):
         context['photos'] = photos
         return context
 
+
+class PhotosListView(ListView):
+    template_name = 'blog/photos.html'
+    model = Photo
+    paginate_by = 1
+
 # class SearchPageTemplateView(ListView):
 #     template_name = 'blog/search.html'
 #     context_object_name = 'results'

@@ -104,3 +104,8 @@ a.article-title:hover {
 .dropdown:hover .btn-secondary {
     color: #fff; /* Jeśli chcesz zmienić kolor tekstu na biały po najechaniu */
 }
+
+.photo {
+    height:50%;
+    width:50%;
+}
