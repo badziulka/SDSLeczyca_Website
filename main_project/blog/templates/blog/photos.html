@@ -1,13 +1,35 @@
 {% extends 'blog/base.html' %}
-{% load static %}
+{% load photologue_tags %}
+
 {% block content %}
-    <h1>Zdjęcia Naszego Ośrodka</h1>
-    <ul>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $('.photo').click(function(){
+            window.location.href = $(this).parent().attr('href');
+        });
+    });
+</script>
+<h1>{{ title }}</h1>
+    <div class="photo-gallery">
         {% for photo in photos %}
-            <li>
-                <img src="{{ photo.url }}" alt="{{ photo.name }}" width="600" height="400">
-            </li>
-            <br>
+            <div class="row">
+                <div class="col">
+                    <p>
+                        <a href="{{ photo.get_absolute_url }}">
+                            <img class="photo" src="{{ photo.image.url }}" alt="{{ photo.title }}">
+                        </a>
+                    </p>
+                </div>
+            </div>
         {% endfor %}
-    </ul>
+    </div>
+
+    <div class="pagination">
+        {% for page in photos.page_range %}
+            <span class="{% if photos.number == page %}current{% endif %}">
+                <a href="?page={{ page }}">{{ page }}</a>
+            </span>
+        {% endfor %}
+    </div>
 {% endblock %}

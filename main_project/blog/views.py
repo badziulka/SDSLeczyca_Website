@@ -8,7 +8,11 @@ from django.views import View
 import os
 from django.conf import settings
 from django.templatetags.static import static
-from .models import Photo
+# from .models import Photo
+from django.views.generic import ListView
+from photologue.models import Photo as PhotologuePhoto
+
+
 
 
 class HomePageTemplateView(TemplateView):
@@ -109,26 +113,39 @@ class FilesView(View):
         return render(request, 'blog/files.html')
 
 
-class PhotosTemplateView(TemplateView):
+# class PhotosTemplateView(TemplateView):
+#     template_name = 'blog/photos.html'
+#
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         photos_directory = settings.MEDIA_ROOT
+#         photos = os.listdir(photos_directory)
+#
+#         photos_list = []
+#         for photo in photos:
+#             if photo.endswith(('.jpg', '.png', '.jpeg', '.gif')):
+#                 photos_list.append({
+#                     'name': photo,
+#                     'url': os.path.join(settings.MEDIA_URL, photo),
+#                 })
+#
+#         context['photos'] = photos_list
+#         return context
+
+        # zrobic obj za kazde zdjecie i tutaj sie odwolac; wiele zdjec w jednym modelu
+class PhotosListView(ListView):
     template_name = 'blog/photos.html'
+    model = PhotologuePhoto
+    paginate_by = 10
+    context_object_name = 'photos'
+
+    def get_queryset(self):
+        return super().get_queryset().filter(title__isnull=False)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        photos_directory = settings.MEDIA_ROOT
-        photos = os.listdir(photos_directory)
-
-        photos_list = []
-        for photo in photos:
-            if photo.endswith(('.jpg', '.png', '.jpeg', '.gif')):
-                photos_list.append({
-                    'name': photo,
-                    'url': os.path.join(settings.MEDIA_URL, photo),
-                })
-
-        context['photos'] = photos_list
+        context['title'] = 'Zdjęcia naszego ośrodka'
         return context
-
-        # zrobic obj za kazde zdjecie i tutaj sie odwolac; wiele zdjec w jednym modelu
 # class SearchPageTemplateView(ListView):
 #     template_name = 'blog/search.html'
 #     context_object_name = 'results'
