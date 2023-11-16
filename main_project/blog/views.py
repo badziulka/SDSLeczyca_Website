@@ -9,9 +9,9 @@ import os
 from django.conf import settings
 from django.templatetags.static import static
 # from .models import Photo
-from django.views.generic import ListView
-from photologue.models import Photo as PhotologuePhoto
-
+from django.views.generic import ListView, DetailView
+from photologue.models import Gallery, Photo
+from .models import GalleryPhoto
 
 
 
@@ -133,18 +133,50 @@ class FilesView(View):
 #         return context
 
         # zrobic obj za kazde zdjecie i tutaj sie odwolac; wiele zdjec w jednym modelu
-class PhotosListView(ListView):
-    template_name = 'blog/photos.html'
-    model = PhotologuePhoto
-    paginate_by = 10
-    context_object_name = 'photos'
+# class PhotosListView(ListView):
+#     template_name = 'blog/photos.html'
+#     model = PhotologuePhoto
+#     # paginate_by = 10
+#     context_object_name = 'photos'
+#
+#     def get_queryset(self):
+#         return super().get_queryset().filter(title__isnull=False)
+#
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         context['title'] = 'Zdjęcia naszego ośrodka'
+#         return context
 
-    def get_queryset(self):
-        return super().get_queryset().filter(title__isnull=False)
+class GalleryListView(ListView):
+    model = Gallery
+    template_name = 'blog/gallery_list.html'
+    context_object_name = 'galleries'
+
+
+class GalleryDetailView(DetailView):
+    model = Gallery
+    template_name = 'blog/gallery_detail.html'
+    context_object_name = 'gallery'
+
+    def get(self, request, *args, **kwargs):
+        response = super().get(request, *args, **kwargs)
+        print("GalleryDetailView - Photos:", self.object.photos.all())
+        return response
+
+class PhotoDetailView(DetailView):
+    model = Photo
+    template_name = 'photo_detail.html'
+    context_object_name = 'photo'
+
+    def get_object(self, queryset=None):
+        gallery = get_object_or_404(Gallery, pk=self.kwargs['gallery_id'])
+        photo = get_object_or_404(Photo, pk=self.kwargs['photo_id'], galleries=gallery)
+        return photo
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Zdjęcia naszego ośrodka'
+        context['gallery'] = get_object_or_404(Gallery, pk=self.kwargs['gallery_id'])
+        context['gallery_photo'] = get_object_or_404(GalleryPhoto, gallery=context['gallery'], photo=context['photo'])
         return context
 # class SearchPageTemplateView(ListView):
 #     template_name = 'blog/search.html'

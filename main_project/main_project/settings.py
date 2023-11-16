@@ -58,10 +58,20 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'main_project.urls'
 
+TEMPLATE_LOADERS = (
+    'django.template.loaders.filesystem.Loader',
+    'django.template.loaders.app_directories.Loader',
+)
+
+PHOTOLOGUE_USE_CKEDITOR = True
+
+PHOTOLOGUE_USE_FILER = True  # Jeśli używasz django-filer
+PHOTOLOGUE_APP_DIR = 'photologue'
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -124,6 +134,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 
 
@@ -134,3 +145,20 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+PHOTOLOGUE_MEDIUM_SIZE = (300, 200)
+PHOTOLOGUE_SMALL_SIZE = (100, 75)
+PHOTOLOGUE_THUMB_SIZE = (50, 50)
+
+PHOTOLOGUE = {
+    'THUMBNAIL_QUALITY': 95,  # Wartość od 0 do 100
+    'ADMIN_THUMBNAIL_QUALITY': 95,
+    'THUMBNAIL_FORMAT': 'JPEG',  # lub 'PNG', itp.
+    'ADMIN_THUMBNAIL_FORMAT': 'JPEG',  # lub 'PNG', itp.
+    # Wartość od 0 do 100
+    # Inne ustawienia...
+}
+PHOTOLOGUE_CUSTOM_PROCESSORS = (
+    'myapp.custom_processors.custom_thumbnail_processor',
+    # Pozostałe procesory...
+)

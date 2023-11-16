@@ -21,7 +21,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from .views import HomePageTemplateView, AboutPageTemplateView, ContactPageTemplateView, FilesView,\
     RulesAdmissionTemplateView, TherapeuticOfferTemplateView, NewsTemplateView, PersonnelTemplateView, BIPTemplateView, \
-    FacebookTemplateView, RODOTemplateView, PhotosListView
+    FacebookTemplateView, RODOTemplateView, GalleryListView, GalleryDetailView, PhotoDetailView
 
 urlpatterns = [
     path('', HomePageTemplateView.as_view(), name='blog-home'),
@@ -34,7 +34,10 @@ urlpatterns = [
     path('rules/', RulesAdmissionTemplateView.as_view(), name='blog-rules'),
     path('bip/', BIPTemplateView.as_view(), name='blog-bip'),
     path('facebook/', FacebookTemplateView.as_view(), name='blog-facebook'),
-    path('photos/', PhotosListView.as_view(), name='blog-photos'),
+    # path('photos/', PhotosListView.as_view(), name='blog-photos'),
+    path('gallery/', GalleryListView.as_view(), name='gallery-list'),
+    path('gallery/<int:pk>/', GalleryDetailView.as_view(), name='gallery-detail'),
+    path('gallery/<int:gallery_id>/photo/<int:photo_id>/', PhotoDetailView.as_view(), name='photo-detail'),
     path('rodo/', RODOTemplateView.as_view(), name='blog-rodo'),
 ]
 if settings.DEBUG:

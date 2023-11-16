@@ -1,0 +1,17 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+  <h1>{{ gallery.title }}</h1>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="gallery-list">
+         {% for photo in gallery.public %}
+            <a href="{% url 'photo-detail' gallery_id=gallery.id photo_id=photo.id %}">
+                <img src="{{ photo.get_thumbnail_url }}" class="img-thumbnail" alt="{{ photo.title }}">
+            </a>
+          {% endfor %}
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
