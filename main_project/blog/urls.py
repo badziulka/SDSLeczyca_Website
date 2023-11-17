@@ -37,7 +37,7 @@ urlpatterns = [
     # path('photos/', PhotosListView.as_view(), name='blog-photos'),
     path('gallery/', GalleryListView.as_view(), name='gallery-list'),
     path('gallery/<int:pk>/', GalleryDetailView.as_view(), name='gallery-detail'),
-    path('gallery/<int:gallery_id>/photo/<int:photo_id>/', PhotoDetailView.as_view(), name='photo-detail'),
+    path('gallery/<int:gallery_id>/photo/<int:pk>/', PhotoDetailView.as_view(), name='photo-detail'),
     path('rodo/', RODOTemplateView.as_view(), name='blog-rodo'),
 ]
 if settings.DEBUG:

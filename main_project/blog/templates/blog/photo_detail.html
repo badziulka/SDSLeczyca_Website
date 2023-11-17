@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'blog/base.html' %}
 
 {% block title %}{{ photo.title }}{% endblock %}
 
@@ -19,6 +19,7 @@
         </a>
     </div>
     <div class="col-md-6">
+        {% comment %}
         {% if gallery_photo.gallery.public_galleries %}
         <p>This photo is found in the following galleries:</p>
         <table>
@@ -31,6 +32,7 @@
             {% endfor %}
         </table>
         {% endif %}
+        {% endcomment %}
     </div>
 </div>
 

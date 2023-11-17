@@ -12,10 +12,10 @@ from django.templatetags.static import static
 from django.views.generic import ListView, DetailView
 from photologue.models import Gallery, Photo
 from .models import GalleryPhoto
+from .mixins import ExtraContextMixin
 
 
-
-class HomePageTemplateView(TemplateView):
+class HomePageTemplateView(ExtraContextMixin, TemplateView):
     template_name = 'blog/home.html'
 
     def get_context_data(self, **kwargs):
@@ -24,7 +24,7 @@ class HomePageTemplateView(TemplateView):
         return context
 
 
-class AboutPageTemplateView(TemplateView):
+class AboutPageTemplateView(ExtraContextMixin, TemplateView):
     template_name = 'blog/about.html'
 
     def get_context_data(self, **kwargs):
@@ -33,7 +33,7 @@ class AboutPageTemplateView(TemplateView):
         return context
 
 
-class NewsTemplateView(TemplateView):
+class NewsTemplateView(ExtraContextMixin, TemplateView):
     template_name = 'blog/bip.html'
 
     def get_context_data(self, **kwargs):
@@ -42,7 +42,7 @@ class NewsTemplateView(TemplateView):
         return context
 
 
-class TherapeuticOfferTemplateView(TemplateView):
+class TherapeuticOfferTemplateView(ExtraContextMixin, TemplateView):
     template_name = 'blog/offer.html'
 
     def get_context_data(self, **kwargs):
@@ -51,7 +51,7 @@ class TherapeuticOfferTemplateView(TemplateView):
         return context
 
 
-class RulesAdmissionTemplateView(TemplateView):
+class RulesAdmissionTemplateView(ExtraContextMixin, TemplateView):
     template_name = 'blog/rules.html'
 
     def get_context_data(self, **kwargs):
@@ -60,7 +60,7 @@ class RulesAdmissionTemplateView(TemplateView):
         return context
 
 
-class BIPTemplateView(TemplateView):
+class BIPTemplateView(ExtraContextMixin, TemplateView):
     template_name = 'blog/bip.html'
 
     def get_context_data(self, **kwargs):
@@ -69,7 +69,7 @@ class BIPTemplateView(TemplateView):
         return context
 
 
-class RODOTemplateView(TemplateView):
+class RODOTemplateView(ExtraContextMixin, TemplateView):
     template_name = 'blog/rodo.html'
 
     def get_context_data(self, **kwargs):
@@ -78,7 +78,7 @@ class RODOTemplateView(TemplateView):
         return context
 
 
-class FacebookTemplateView(TemplateView):
+class FacebookTemplateView(ExtraContextMixin, TemplateView):
     template_name = 'blog/facebook.html'
 
     def get_context_data(self, **kwargs):
@@ -87,7 +87,7 @@ class FacebookTemplateView(TemplateView):
         return context
 
 
-class PersonnelTemplateView(TemplateView):
+class PersonnelTemplateView(ExtraContextMixin, TemplateView):
     template_name = 'blog/personnel.html'
 
     def get_context_data(self, **kwargs):
@@ -96,7 +96,7 @@ class PersonnelTemplateView(TemplateView):
         return context
 
 
-class ContactPageTemplateView(TemplateView):
+class ContactPageTemplateView(ExtraContextMixin, TemplateView):
     template_name = 'blog/contact.html'
 
     def get_context_data(self, **kwargs):
@@ -110,7 +110,63 @@ class FilesView(View):
         file_path = os.path.join(settings.MEDIA_ROOT, 'zaswiadczenia_lekarzy_specjalistow.pdf')
 
         response = FileResponse(open(file_path, 'rb'))
-        return render(request, 'blog/files.html')
+        return render(request, 'blog/files.html', context={'gallery':Gallery.objects.latest('id')})
+
+
+
+class GalleryListView(ListView):
+    model = Gallery
+    template_name = 'blog/gallery_list.html'
+    context_object_name = 'galleries'
+
+
+class GalleryDetailView(DetailView):
+    model = Gallery
+    template_name = 'blog/gallery_detail.html'
+    context_object_name = 'gallery'
+
+    def get(self, request, *args, **kwargs):
+        response = super().get(request, *args, **kwargs)
+        print("GalleryDetailView - Photos:", self.object.photos.all())
+        return response
+
+
+class PhotoDetailView(DetailView):
+    model = Photo
+    template_name = 'blog/photo_detail.html'
+
+
+    # def get_object(self, queryset=None):
+    #     gallery_id = self.kwargs.get('gallery_id')
+    #     photo_id = self.kwargs.get('pk')
+    #
+    #     print(f"gallery_id: {gallery_id}, photo_id: {photo_id}")
+    #
+    #     gallery_photo = get_object_or_404(GalleryPhoto, gallery__id=gallery_id, photo__id=photo_id)
+    #
+    #
+    #     return gallery_photo
+
+
+
+# class SearchPageTemplateView(ListView):
+#     template_name = 'blog/search.html'
+#     context_object_name = 'results'
+#
+#     def get_queryset(self):
+#         query = self.request.GET.get('q')
+#         results = []
+#
+#
+#         if query:
+#             path = r'C:\Users\LENOVO\PycharmProjects\Django_sds_project'
+#             for file in os.listdir(path):
+#                 with open(os.path.join(path, file), 'r', encoding='utf-8') as file:
+#                     data = file.read()
+#                     if query.lower() in data.lower():
+#                         results.append({'file_name': file, 'data': data})
+#
+#             return results
 
 
 # class PhotosTemplateView(TemplateView):
@@ -146,53 +202,3 @@ class FilesView(View):
 #         context = super().get_context_data(**kwargs)
 #         context['title'] = 'Zdjęcia naszego ośrodka'
 #         return context
-
-class GalleryListView(ListView):
-    model = Gallery
-    template_name = 'blog/gallery_list.html'
-    context_object_name = 'galleries'
-
-
-class GalleryDetailView(DetailView):
-    model = Gallery
-    template_name = 'blog/gallery_detail.html'
-    context_object_name = 'gallery'
-
-    def get(self, request, *args, **kwargs):
-        response = super().get(request, *args, **kwargs)
-        print("GalleryDetailView - Photos:", self.object.photos.all())
-        return response
-
-class PhotoDetailView(DetailView):
-    model = Photo
-    template_name = 'photo_detail.html'
-    context_object_name = 'photo'
-
-    def get_object(self, queryset=None):
-        gallery = get_object_or_404(Gallery, pk=self.kwargs['gallery_id'])
-        photo = get_object_or_404(Photo, pk=self.kwargs['photo_id'], galleries=gallery)
-        return photo
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['gallery'] = get_object_or_404(Gallery, pk=self.kwargs['gallery_id'])
-        context['gallery_photo'] = get_object_or_404(GalleryPhoto, gallery=context['gallery'], photo=context['photo'])
-        return context
-# class SearchPageTemplateView(ListView):
-#     template_name = 'blog/search.html'
-#     context_object_name = 'results'
-#
-#     def get_queryset(self):
-#         query = self.request.GET.get('q')
-#         results = []
-#
-#
-#         if query:
-#             path = r'C:\Users\LENOVO\PycharmProjects\Django_sds_project'
-#             for file in os.listdir(path):
-#                 with open(os.path.join(path, file), 'r', encoding='utf-8') as file:
-#                     data = file.read()
-#                     if query.lower() in data.lower():
-#                         results.append({'file_name': file, 'data': data})
-#
-#             return results
