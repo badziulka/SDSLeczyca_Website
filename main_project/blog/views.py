@@ -113,7 +113,6 @@ class FilesView(View):
         return render(request, 'blog/files.html', context={'gallery':Gallery.objects.latest('id')})
 
 
-
 class GalleryListView(ListView):
     model = Gallery
     template_name = 'blog/gallery_list.html'
@@ -134,71 +133,3 @@ class GalleryDetailView(DetailView):
 class PhotoDetailView(DetailView):
     model = Photo
     template_name = 'blog/photo_detail.html'
-
-
-    # def get_object(self, queryset=None):
-    #     gallery_id = self.kwargs.get('gallery_id')
-    #     photo_id = self.kwargs.get('pk')
-    #
-    #     print(f"gallery_id: {gallery_id}, photo_id: {photo_id}")
-    #
-    #     gallery_photo = get_object_or_404(GalleryPhoto, gallery__id=gallery_id, photo__id=photo_id)
-    #
-    #
-    #     return gallery_photo
-
-
-
-# class SearchPageTemplateView(ListView):
-#     template_name = 'blog/search.html'
-#     context_object_name = 'results'
-#
-#     def get_queryset(self):
-#         query = self.request.GET.get('q')
-#         results = []
-#
-#
-#         if query:
-#             path = r'C:\Users\LENOVO\PycharmProjects\Django_sds_project'
-#             for file in os.listdir(path):
-#                 with open(os.path.join(path, file), 'r', encoding='utf-8') as file:
-#                     data = file.read()
-#                     if query.lower() in data.lower():
-#                         results.append({'file_name': file, 'data': data})
-#
-#             return results
-
-
-# class PhotosTemplateView(TemplateView):
-#     template_name = 'blog/photos.html'
-#
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         photos_directory = settings.MEDIA_ROOT
-#         photos = os.listdir(photos_directory)
-#
-#         photos_list = []
-#         for photo in photos:
-#             if photo.endswith(('.jpg', '.png', '.jpeg', '.gif')):
-#                 photos_list.append({
-#                     'name': photo,
-#                     'url': os.path.join(settings.MEDIA_URL, photo),
-#                 })
-#
-#         context['photos'] = photos_list
-#         return context
-
-        # zrobic obj za kazde zdjecie i tutaj sie odwolac; wiele zdjec w jednym modelu
-# class PhotosListView(ListView):
-#     template_name = 'blog/photos.html'
-#     model = PhotologuePhoto
-#     # paginate_by = 10
-#     context_object_name = 'photos'
-#
-#     def get_queryset(self):
-#         return super().get_queryset().filter(title__isnull=False)
-#
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context['title'] = 'Zdjęcia naszego ośrodka'
-#         return context

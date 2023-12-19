@@ -34,7 +34,6 @@ urlpatterns = [
     path('rules/', RulesAdmissionTemplateView.as_view(), name='blog-rules'),
     path('bip/', BIPTemplateView.as_view(), name='blog-bip'),
     path('facebook/', FacebookTemplateView.as_view(), name='blog-facebook'),
-    # path('photos/', PhotosListView.as_view(), name='blog-photos'),
     path('gallery/', GalleryListView.as_view(), name='gallery-list'),
     path('gallery/<int:pk>/', GalleryDetailView.as_view(), name='gallery-detail'),
     path('gallery/<int:gallery_id>/photo/<int:pk>/', PhotoDetailView.as_view(), name='photo-detail'),
