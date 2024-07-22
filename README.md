@@ -34,32 +34,31 @@ SDS LECZYCA WEBSITE is a simple yet functional website developed in Python. This
 # How to install:
 1. Clone the repository to your local machine
 
-   ""git clone https://github.com/badziulka/SDSLeczyca_Website/tree/master""
+   ```git clone https://github.com/badziulka/SDSLeczyca_Website/tree/master```
    
-3. Navigate to the project directory:
+2. Navigate to the project directory:
 
-   ![image](https://github.com/badziulka/KiaLandcar_CarQuiz/assets/125203120/c1eb01f6-95e0-4209-9599-94f825d19c23)
+   ```cd main_project```
 
-4. Create and activate a virtual environment
+3. Create and activate a virtual environment
 
-   ![image](https://github.com/badziulka/KiaLandcar_CarQuiz/assets/125203120/ade535a0-7052-482f-a12a-b518910db62d)
+    ```python -m venv venv```
+ 
+      or
 
-   or
+    ```venv\Scripts\activate```
+ 
+4. Install dependencies
 
-   ![image](https://github.com/badziulka/KiaLandcar_CarQuiz/assets/125203120/b8a78d7f-2cbf-42c5-a7b5-c1150f0ebc86)
+    ```pip install -r requirements.txt```
+ 
+5. Apply database migrations
 
-5. Install dependencies
+    ```python manage.py migrate```
+ 
+6. Run the development server
 
-   ![image](https://github.com/badziulka/KiaLandcar_CarQuiz/assets/125203120/8082bf25-3a91-4245-bf83-5573aad8e1fb)
-
-6. Apply database migrations
-
-   ![image](https://github.com/badziulka/KiaLandcar_CarQuiz/assets/125203120/d954ebd1-7b28-4002-9c42-676bef29c4bb)
-
-7. Run the development server
-
-   ![image](https://github.com/badziulka/KiaLandcar_CarQuiz/assets/125203120/22d7d920-69ba-4e55-9514-455eafd358be)
-
+    ```python manage.py runserver```
 
 The application should now be accessible at http://127.0.0.1:8000/
 
