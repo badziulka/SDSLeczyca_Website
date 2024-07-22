@@ -34,13 +34,13 @@ SDS LECZYCA WEBSITE is a simple yet functional website developed in Python. This
 # How to install:
 1. Clone the repository to your local machine
 
-   ![image](https://github.com/badziulka/KiaLandcar_CarQuiz/assets/125203120/6b1ec5ce-52c7-4780-b0f3-652c71af8d6e)
-
-2. Navigate to the project directory:
+   ""git clone https://github.com/badziulka/SDSLeczyca_Website/tree/master""
+   
+3. Navigate to the project directory:
 
    ![image](https://github.com/badziulka/KiaLandcar_CarQuiz/assets/125203120/c1eb01f6-95e0-4209-9599-94f825d19c23)
 
-3. Create and activate a virtual environment
+4. Create and activate a virtual environment
 
    ![image](https://github.com/badziulka/KiaLandcar_CarQuiz/assets/125203120/ade535a0-7052-482f-a12a-b518910db62d)
 
