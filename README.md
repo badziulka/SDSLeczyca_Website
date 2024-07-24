@@ -34,7 +34,7 @@ SDS LECZYCA WEBSITE is a simple yet functional website developed in Python. This
 # How to install:
 1. Clone the repository to your local machine
 
-   ```git clone https://github.com/badziulka/SDSLeczyca_Website/tree/master```
+   ```git clone https://github.com/badziulka/SDSLeczyca_Website```
    
 2. Navigate to the project directory:
 
