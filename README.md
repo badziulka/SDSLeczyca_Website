@@ -66,4 +66,5 @@ The application should now be accessible at http://127.0.0.1:8000/
 # Usage:
 
 1. Open a web browser and go to http://127.0.0.1:8000/
+2. Obtain information about the Community Self-Help Center through the tabs.
 
